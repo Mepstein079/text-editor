@@ -1,12 +1,12 @@
 from tkinter import *
 import tkinter as tk
-from tkinter.filedialog import asksaveasfilename
+from tkinter.filedialog import asksaveasfilename, askopenfile
 
 
 # Creates the save function to be used later
 def save():
     filepath = asksaveasfilename(defaultextension="txt", filetypes=[
-                                 ("Text Files", "*.txt"), ("All Files", "*.*")])
+                                 ("Text Files", "*.txt")])
     if not filepath:
         return
     with open(filepath, "w") as output:
@@ -15,9 +15,24 @@ def save():
     text_window.title(f"Entitled - {filepath}")
 
 
+def load():
+    filepath = askopenfile(defaultextension="txt", filetypes=[("Text Files", "*.txt")], )
+    reader = Text(text_window, width=400, height=450, yscrollcommand=scroll.set)
+    if not filepath:
+        return
+
+    #with open(filepath, "r") as file:
+     #   text = reader.get(1.0, tk.END)
+      #  reader.read(text)
+
+    with open(filepath, "r") as file:
+        reader.insert(INSERT, file.read())
+        reader.pack(fill="none", expand=TRUE)
+    text_window.title(f"Entitled - {filepath}")
+
 # creating the text window
 text_window = Tk()
-text_window.geometry('600x600')
+text_window.geometry("600x600")
 text_window.title("Matt's Text Editor")
 
 # Will create the label for the heading
@@ -33,8 +48,11 @@ editor.pack(fill=BOTH)
 scroll.config(command=editor.yview)
 
 # The button where the user can save their text
-save_button = Button(text_window, text='Save', font=(
-    'normal', 10), command=save, bg='light blue')
+save_button = Button(text_window, text="Save", font=(
+    "normal", 10), command=save, bg="light blue")
 save_button.place(x=270, y=520)
+
+load_button = Button(text_window, text="Load", font=("normal", 10), command=load, bg="red")
+load_button.place(x=330, y=520)
 
 text_window.mainloop()
