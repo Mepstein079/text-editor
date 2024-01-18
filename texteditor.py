@@ -37,5 +37,4 @@ save_button = Button(text_window, text='Save', font=(
     'normal', 10), command=save, bg='light blue')
 save_button.place(x=270, y=520)
 
-
 text_window.mainloop()
