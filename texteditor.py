@@ -1,6 +1,6 @@
 from tkinter import *
 import tkinter as tk
-from tkinter.filedialog import asksaveasfilename, askopenfile
+from tkinter.filedialog import asksaveasfilename, askopenfilename
 
 
 # Creates the save function to be used later
@@ -16,18 +16,14 @@ def save():
 
 
 def load():
-    filepath = askopenfile(defaultextension="txt", filetypes=[("Text Files", "*.txt")], )
-    reader = Text(text_window, width=400, height=450, yscrollcommand=scroll.set)
+    filepath = askopenfilename(defaultextension="txt", filetypes=[("Text Files", "*.txt")], )
     if not filepath:
         return
 
-    #with open(filepath, "r") as file:
-     #   text = reader.get(1.0, tk.END)
-      #  reader.read(text)
-
     with open(filepath, "r") as file:
-        reader.insert(INSERT, file.read())
-        reader.pack(fill="none", expand=TRUE)
+        lines = file.read()
+        editor.delete(1.0, END)
+        editor.insert(INSERT, lines)
     text_window.title(f"Entitled - {filepath}")
 
 # creating the text window
