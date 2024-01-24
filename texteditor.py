@@ -58,14 +58,14 @@ scroll.config(command=editor.yview)
 save_button = Button(text_window, text="Save", font=(
     "normal", 10), command=save, bg="light blue")
 save_bottom_width = save_button.winfo_reqwidth()
-save_button.place(relx=0.41, rely=.9, anchor="s", x=save_bottom_width/2)
+save_button.place(relx=0.45, rely=.9, anchor="s", x=save_bottom_width/2)
 
 
 # The button to for the user to load their text file
 load_button = Button(text_window, text="Load", font=(
     "normal", 10), command=load, bg="red")
 load_bottom_width = load_button.winfo_reqwidth()
-load_button.place(relx=0.51, rely=0.9, anchor="s", x=load_bottom_width/2)
+load_button.place(relx=0.53, rely=0.9, anchor="s", x=load_bottom_width/2)
 
 
 # Area for the user's word count to show
