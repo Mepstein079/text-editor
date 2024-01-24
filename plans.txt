@@ -1,0 +1,18 @@
+Features to Make:
+* Fix options window
+* Fix word counter (run word count function on key release of space, backspace, and delete)
+* Ability to switch word count position
+* Make an undo (ctrl + z)/redo (ctrl + y) shortcuts
+* Make ability to bold, italicize, or underline text (and shortcuts for that)
+* Limit characters per line
+* Line numbers
+* Ability to switch line numbers on or off
+* Font and Style options
+* Change in themes
+* Spell Checker
+
+Post Adding Features:
+* Format my code
+* Add documentation
+* Make sure it can be downloaded from GitHub as intended
+* Add instructions for download
