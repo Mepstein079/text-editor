@@ -1,5 +1,6 @@
 Features to Make:
 * Fix options window
+* Make a way you can close the options window.
 * Fix word counter (run word count function on key release of space, backspace, and delete)
 * Ability to switch word count position
 * Make an undo (ctrl + z)/redo (ctrl + y) shortcuts
