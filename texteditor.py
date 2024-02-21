@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter as tk
+from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename, askopenfilename
 
 
@@ -50,34 +51,15 @@ def calculate_options_location():
 
 
 # Will be called to show the Toplevel window where the user can pick new options
-def show_option_window():
-    # Creates the window
-    option_window = tk.Toplevel(text_window)
+def popup_option_menu(event):
+    option_menu = ttk.Menu(text_window, tearoff=0)
+    option_menu.add_command(label="Save", command=save)
+    option_menu.add_command(label="Load", command=load)
 
-    # Sets the position, it not being resizable, and not show window manager
-    option_window.geometry("+40+55")
-    option_window.resizable(False, False)
-    option_window.overrideredirect(True)
-
-    option_window.update()
-
-    x, y = calculate_options_location()
-    option_window.geometry(f"+{x}+{y}")
-
-    text_window.bind("<Configure>", lambda event: option_window.geometry(
-        f"+{calculate_options_location()[0]}+{calculate_options_location()[1]}"))
-
-    # The button where the user can save their text
-    save_button = Button(
-        option_window, text="Save", font=("normal", 10), command=save
-    )
-    save_button.pack()
-
-    # The button to for the user to load their text file
-    load_button = Button(
-        option_window, text="Load", font=("normal", 10), command=load
-    )
-    load_button.pack()
+    try:
+        option_menu.tk_popup(event.x_root, event.y_root)
+    finally:
+        option_menu.grab_release()
 
 
 # creating the text window
@@ -87,14 +69,16 @@ text_window.title("Matt's Text Editor")
 
 
 # Creates a button in the text_window to show the option_window
-show_options = tk.Button(text_window, text="Options",
-                         command=show_option_window, font=("normal", 10))
+show_options = tk.Button(text_window, text="Options", font=("normal", 10))
 show_options.pack(anchor="nw")
+show_options.bind("<Button-1>", popup_option_menu)
+
 
 # Creates the scroll bar on the right side along with the area where the text will be
 scroll = Scrollbar(text_window)
 scroll.pack(side=RIGHT, fill=Y)
-editor = Text(text_window, width=400, height=450, yscrollcommand=scroll.set, bg="black", font=("Helvetica", 12), fg="white")
+editor = Text(text_window, width=400, height=450, yscrollcommand=scroll.set,
+              bg="black", font=("Helvetica", 12), fg="white")
 editor.pack(fill=BOTH)
 scroll.config(command=editor.yview)
 
