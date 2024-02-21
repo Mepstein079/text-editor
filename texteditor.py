@@ -33,6 +33,7 @@ def load():
         editor.insert(INSERT, lines)
     text_window.title(f"Entitled - {filepath}")
 
+    # Calls the word counter function so the word counter stays up to date with the new file
     word_counter()
 
 
