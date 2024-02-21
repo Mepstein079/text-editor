@@ -1,6 +1,5 @@
 from tkinter import *
 import tkinter as tk
-from tkinter import ttk
 from tkinter.filedialog import asksaveasfilename, askopenfilename
 
 
@@ -34,6 +33,8 @@ def load():
         editor.insert(INSERT, lines)
     text_window.title(f"Entitled - {filepath}")
 
+    word_counter()
+
 
 # Will count the user's words to display them
 def word_counter():
@@ -41,8 +42,7 @@ def word_counter():
     words = text.split()
     word_count_label.config(text=f"Word Count: {len(words)}")
 
-
-# Calculates the option's location
+# Will calculate the option's location so the menu can drop below it
 def calculate_options_location():
     x = text_window.winfo_rootx() + show_options.winfo_x()
     y = text_window.winfo_rooty() + +show_options.winfo_y() + \
@@ -50,17 +50,28 @@ def calculate_options_location():
     return x, y
 
 
-# Will be called to show the Toplevel window where the user can pick new options
+# Will be called to show the option window along with its values
 def popup_option_menu(event):
-    option_menu = ttk.Menu(text_window, tearoff=0)
+
+    # Creates the option menu
+    option_menu = Menu(text_window, tearoff=0)
+
+    # Creates the commands within the menu
     option_menu.add_command(label="Save", command=save)
     option_menu.add_command(label="Load", command=load)
 
+    # Gets the x and y values
+    x, y = calculate_options_location()
+
     try:
-        option_menu.tk_popup(event.x_root, event.y_root)
+        option_menu.tk_popup(x + 5, y + 5)
     finally:
         option_menu.grab_release()
 
+
+def on_key_release(event):
+    if event.keysym in ("space", "BackSpace", "Delete"):
+        word_counter()
 
 # creating the text window
 text_window = Tk()
@@ -89,6 +100,6 @@ word_count_label = Label(
 word_count_label.place(relx=0, rely=1, anchor="sw")
 
 # Calls the word_counter function at each key release
-editor.bind("<KeyRelease>", lambda event: text_window.after(150, word_counter))
+editor.bind("<KeyRelease>", on_key_release)
 
 text_window.mainloop()
